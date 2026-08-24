@@ -59,6 +59,13 @@ Replay the corpus against a running engine:
 ./bin/run-tests.sh specs/address-poisoning specs/settings-change/bybit-mastercopy-delegatecall.json
 ```
 
+`bin/test-sentinel.py` is a dummy engine that answers every vector correctly by reading the corpus, so it scores 100% by construction. It exists so that CI can exercise `bin/run-tests.sh` without a real engine to point at:
+
+```sh
+./bin/test-sentinel.py &
+./bin/run-tests.sh
+```
+
 Both scripts take the same spec operands: nothing (or `all`, the default) for the whole corpus, a `<group>`, or a `<group>/<case>.json`. A leading `specs/` is accepted, so tab-completed paths work as typed.
 
 `bin/run-tests.sh` reports a per-group scorecard rather than a single verdict, because the useful question about an engine is usually which areas it covers, not whether it is perfect:
