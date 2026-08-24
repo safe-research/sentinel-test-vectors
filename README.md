@@ -39,6 +39,8 @@ Spec files have exactly one permitted on-disk form: 2-space indent, one trailing
 
 Do not hand-format. `bin/check-specs.sh --fix` rewrites files into canonical form, and CI rejects anything that is not already in it.
 
+`--fix` only touches specs that already satisfy the schema, a spec with schema errors is reported and left exactly as it was; fix those by hand first.
+
 ## Usage
 
 Validate the corpus. Needs no network and no engine:
