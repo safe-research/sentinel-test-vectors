@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0x2dfc6ddd5230f391f0cb8f35095f32dd1dc3a14c",
+    "to": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+    "value": "0x0",
+    "data": "0xa9059cbb00000000000000000000000085cbe4af7167887839f27a759eed03e7af11d8f60000000000000000000000000000000000000000000000000000000014dc9380",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x6c"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 3.5 WBTC to 0x85cbe4af7167887839f27a759eed03e7af11d8f6 instead of the intended 0x85cbb0e8262815b4866b166c02f7ef876a49d8f6 — the two agree on the first five and last four hex digits. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0x9f0fc3cd380fcde7cd7f0b1d8a646021841b211b784ac00c8ed9d4e267a647a4"
+}

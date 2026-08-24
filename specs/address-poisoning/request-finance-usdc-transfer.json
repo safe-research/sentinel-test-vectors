@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0xE7c15D929cdf8c283258daeBF04Fb2D9E403d139",
+    "to": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "value": "0x0",
+    "data": "0xa9059cbb0000000000000000000000000bfd0d71285dcf61262e4413ea32baaea7f1b2d2000000000000000000000000000000000000000000000000000000104c533c00",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x9d"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "USDC transfer to the lookalike recipient 0x0bfd0d71285dcf61262e4413ea32baaea7f1b2d2, surfaced through a compromised app interface. Filed upstream under unintended approvals, but the signed transaction is a plain transfer to the wrong address. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0x2ed88b7a179b32a129b85cdf94fe50c4d8acee78e9af3da69c12aea3dd29ca47"
+}

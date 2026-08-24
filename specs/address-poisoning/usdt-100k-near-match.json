@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0xa492b4382186eb0f852669b0784f5a279c5ec00d",
+    "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+    "value": "0x0",
+    "data": "0xa9059cbb000000000000000000000000adf2b00721d376ac72c707294f20bdbf7d4f979d000000000000000000000000000000000000000000000000000000174876e800",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x1"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 100,000 USDT to 0xadf2b00721d376ac72c707294f20bdbf7d4f979d, a near-match of the intended recipient. The account's second transaction ever, so there is almost no history to compare against. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0xd2ad16038beca3850e4ca30840bbb86ffb822fa756122f3698c84343d3c7d6de"
+}

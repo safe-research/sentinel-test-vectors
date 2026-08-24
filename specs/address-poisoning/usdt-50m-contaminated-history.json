@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0xcb80784ef74c98a89b6ab8d96ebe890859600819",
+    "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+    "value": "0x0",
+    "data": "0xa9059cbb000000000000000000000000baff2f13638c04b10f8119760b2d2ae86b08f8b500000000000000000000000000000000000000000000000000002d7985422f80",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x70"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 49,999,950 USDT to 0xbaff2f13638c04b10f8119760b2d2ae86b08f8b5, copied from a contaminated transfer history — the largest single address-poisoning loss in this corpus. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0xc0514a795f065fce8a3e1238a1ba480e8a792d45f6431ee4ba8d800bedd86a0f"
+}

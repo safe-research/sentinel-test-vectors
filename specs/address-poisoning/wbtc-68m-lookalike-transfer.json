@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0x1e227979f0b5bc691a70deaed2e0f39a6f538fd5",
+    "to": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+    "value": "0x0",
+    "data": "0xa9059cbb000000000000000000000000d9a1c3788d81257612e2581a6ea0ada244853a910000000000000000000000000000000000000000000000000000001ae60da1cf",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x4"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 1,155.288 WBTC to 0xd9a1c3788d81257612e2581a6ea0ada244853a91, a lookalike of the intended recipient seeded into the victim's transfer history by a zero-value poisoning transfer shortly before. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0x3374abc5a9c766ba709651399b6e6162de97ca986abc23f423a9d893c8f5f570"
+}
