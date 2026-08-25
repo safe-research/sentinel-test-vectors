@@ -79,6 +79,6 @@ It exits `0` only on a clean sweep — 100% passed, nothing failed, nothing skip
 
 | Option                       | Environment           | Default                 | Meaning                                                  |
 | ---------------------------- | --------------------- | ----------------------- | -------------------------------------------------------- |
-| `--parallel=N`               | `SENTINEL_PARALLEL`   | `1`                     | Run up to `N` specs concurrently.                        |
+| `--parallel=N`               | `PARALLEL`            | `1`                     | Run up to `N` specs concurrently.                        |
 | `--sentinel-engine-url=URL`  | `SENTINEL_ENGINE_URL` | `http://localhost:5473` | Engine base URL; `/v1/security-check` is appended.       |
 | `--sentinel-timeout=SECONDS` | `SENTINEL_TIMEOUT`    | `30`                    | Per-request budget. Sent as `x-request-timeout` (in ms). |
