@@ -23,3 +23,12 @@ jobs:
       - name: specs
         run: |
           ./bin/check-specs.sh
+
+      - name: tests
+        run: |
+          ./bin/test-sentinel.py &
+          engine=$!
+          trap 'kill "$engine"' EXIT
+          curl -sf --retry 30 --retry-connrefused --retry-delay 1 \
+            -o /dev/null http://127.0.0.1:5473/health
+          ./bin/run-tests.sh --parallel=4
