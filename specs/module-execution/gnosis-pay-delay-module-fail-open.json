@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x64",
+    "safe": "0x28aed71b41877c668653aa30d638ba6bc7ba1f57",
+    "to": "0x2a22f9c3b484c3629090feed35f17ff8f88f76f0",
+    "value": "0x0",
+    "data": "0xa9059cbb00000000000000000000000081ba8a2b895d30280bca199c2ff75f3f058d4c6c000000000000000000000000000000000000000000000000000000009728fdd1",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x0"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "Recast from a module execution, not a signed Safe transaction: the on-chain call is execTransactionFromModule on the Safe, so it carried no owner signatures and consumed no Safe nonce (recorded here as 0x0). Gnosis Pay ran a Delay module fork whose added EIP-1271 signature check was implemented fail-open, letting an unauthorised caller queue and execute this transfer of 2,536.046033 USDC.e to their own address 0x81ba8a2b895d30280bca199c2ff75f3f058d4c6c. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0x6a5f1bc997c139a3fd5c53c7e9fa2b03db0b73cf3a780becf5af4a4ddd1b08d7"
+}

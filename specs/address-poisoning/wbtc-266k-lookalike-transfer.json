@@ -1,0 +1,20 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0x2dfc6ddd5230f391f0cb8f35095f32dd1dc3a14c",
+    "to": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+    "value": "0x0",
+    "data": "0xa9059cbb00000000000000000000000085cbe4af7167887839f27a759eed03e7af11d8f60000000000000000000000000000000000000000000000000000000014dc9380",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x6c"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.3",
+  "note": "EOA transaction. At nonce 104, the account sent 110 ETH to the intended address 0x85cbb0e8262815b4866b166c02f7ef876a49d8f6. Roughly seven minutes later, 0x85cbe4af7167887839f27a759eed03e7af11d8f6 sent one gwei of ETH into the account; another seven minutes later, at nonce 108, the account sent that lookalike 3.5 WBTC. The addresses agree on the first four and last four hex digits. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "txHash": "0x9f0fc3cd380fcde7cd7f0b1d8a646021841b211b784ac00c8ed9d4e267a647a4"
+}

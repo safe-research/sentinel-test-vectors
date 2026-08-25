@@ -1,0 +1,19 @@
+{
+  "transaction": {
+    "chainId": "0x38",
+    "safe": "0x39831Ebc3F2b022cf8791457f65d12275922a15D",
+    "to": "0xA5C8e1513B6A08334b479fe4D71F1253259469BE",
+    "value": "0x0",
+    "data": "0xa9059cbb00000000000000000000000070ae7d3decfb4c3ae996fb1c07092566f73d5c150000000000000000000000000000000000000000000842dce83965601b0d0000",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x0",
+    "gasPrice": "0x0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x1"
+  },
+  "verdict": "secure",
+  "note": "BNB Chain control transaction. At Safe nonce 1, transferred 624,197.360125 GUA to the legitimate recipient 0x70ae7D3DECfB4C3aE996fb1c07092566F73D5c15. Five nonces later the same Safe paid a poisoned lookalike sharing the first four and last four hex digits. This is the control that keeps a recipient-similarity check honest: the established recipient is inside the expected target set (§ 2.4), so it must pass R-4.3.",
+  "txHash": "0x90e295bf210dcae1c5c7b119f68f04d78abbb96929591d3273de002d4f1267a3"
+}
