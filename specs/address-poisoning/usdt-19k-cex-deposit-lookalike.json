@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 19,000 USDT to 0xc8115fcb46ac913114f6d5a19a8a009501047605, a lookalike of a centralised-exchange deposit address taken from a contaminated transfer history. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "EOA transaction. Sent 19,000 USDT to 0xc8115fcb46ac913114f6d5a19a8a009501047605, a lookalike of a centralised-exchange deposit address taken from a contaminated transfer history. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
   "txHash": "0x6ae77aad30af69e3fc3ad6bf715abc7189aaa8ee59ba8ef6c384d77084511654"
 }

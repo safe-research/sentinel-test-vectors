@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.5",
-  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Calls increaseApproval on WBTC granting the maximum uint256 allowance to 0x559657c3e8acd2c8cfb73fdb3c43923b91ce9b6b, an attacker-controlled contract that drained 3 WBTC in a follow-up transaction. The spender is a deployed contract, not a bare EOA, so a spender-has-no-code heuristic does not catch this one; the unlimited allowance to an unrecognised contract is the signal. Fails R-4.5 immediately: a max uint256 ERC-20 approval is always functionally unlimited (§ 2.5). Also fails R-4.4, the spender being outside the expected target set (§ 2.4).",
+  "note": "EOA transaction. Calls increaseApproval on WBTC granting the maximum uint256 allowance to 0x559657c3e8acd2c8cfb73fdb3c43923b91ce9b6b, an attacker-controlled contract that drained 3 WBTC in a follow-up transaction. The spender is a deployed contract, not a bare EOA, so a spender-has-no-code heuristic does not catch this one; the unlimited allowance to an unrecognised contract is the signal. Fails R-4.5 immediately: a max uint256 ERC-20 approval is always functionally unlimited (§ 2.5). Also fails R-4.4, the spender being outside the expected target set (§ 2.4).",
   "txHash": "0x0fec93f1e0225af230ca72875f097fbcffd43c920d1152a94dfe5f11ac69b395"
 }

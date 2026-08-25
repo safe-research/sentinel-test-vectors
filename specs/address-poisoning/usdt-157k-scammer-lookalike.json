@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 157,160 USDT to the scammer address 0xa7a00bd2aed75019b4741e4cc9f078c3425a03f0, copied from a contaminated transfer history. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "EOA transaction. Sent 157,160 USDT to 0xa7a00bd2aed75019b4741e4cc9f078c3425a03f0. Fails R-4.3: the recipient is outside the expected target set (§ 2.4). The only USDT transfer between the account and this address in the four days before the payment was a 0.000190 USDT dust transfer from the recipient into the account 13 minutes earlier. The surrounding history also contained zero-value Transfers forged by third parties out of the account to the 0xa7a-prefixed lookalikes 0xa7a7106f.. and 0xa7a935c9.. shortly before.",
   "txHash": "0xbcf463e826a44b79c6a5f055e135bb728efc08450d53f9765120cfb01f3c5e42"
 }

@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "EOA transaction recast as a Safe transaction: the account is an externally-owned account, not a Safe, so the fields a Safe adds are neutral (operation CALL, zero gas parameters, zero gasToken and refundReceiver) and nonce is the account nonce. Sent 100,000 USDT to 0xadf2b00721d376ac72c707294f20bdbf7d4f979d, a near-match of the intended recipient. The account's second transaction ever, so there is almost no history to compare against. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "EOA transaction. Sent 100,000 USDT to 0xadf2b00721d376ac72c707294f20bdbf7d4f979d. Fails R-4.3: the recipient is outside the expected target set (§ 2.4). This was only the second transaction sent by the account, so there was no established pattern to place the recipient inside — only a manufactured one. Minutes earlier a third party (0xef7c73aa43..) forged repeated zero-value USDT Transfers out of the account to this recipient, and others forged the same to its neighbours 0xadf2d299..979d and 0xadf2afae..979d, leaving a history of payments the account never made to a family of adf2..979d lookalikes.",
   "txHash": "0xd2ad16038beca3850e4ca30840bbb86ffb822fa756122f3698c84343d3c7d6de"
 }

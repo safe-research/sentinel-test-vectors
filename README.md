@@ -22,6 +22,17 @@ Optional hash of a real on-chain transaction corresponding to this vector.
 
 This is for **documentation only**, a pointer to a block explorer for whoever is investigating the case. Nothing derives it from `transaction` or checks that the two agree, and the test harness never reads it.
 
+### EOA Transactions
+
+Some vectors are recast from a transaction an externally-owned account made rather than a Safe. Address poisoning mostly claims EOAs, and module exploits bypass the multisig entirely, but the decision a sentinel would have to make is the same one — so those incidents are represented here in the `SafeTransaction` shape:
+
+- the acting account becomes `safe`, even though no Safe was deployed there;
+- `to`, `value` and `data` are taken from the on-chain call;
+- fields with no counterpart are neutral: `operation` is CALL, `safeTxGas`, `baseGas` and `gasPrice` are `0x0`, and `gasToken` and `refundReceiver` are the zero address;
+- `nonce` is the account nonce.
+
+Their notes begin with "EOA transaction." Read `safe` as the account whose funds were at risk, not as a claim that a Safe exists at that address.
+
 ## Canonical formatting
 
 Spec files have exactly one permitted on-disk form: 2-space indent, one trailing newline, and keys in the order shown above — the `SafeTransaction` fields in Safe struct order, then `verdict`, `rule`, `note`, `txHash`.
