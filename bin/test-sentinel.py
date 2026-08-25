@@ -53,6 +53,10 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         """Health check, so a caller can wait for the port to start serving."""
+        if self.path != "/health":
+            self.respond(404, {"error": f"no such endpoint: {self.path}"})
+            return
+
         self.respond(200, {"status": "ok", "vectors": len(self.server.verdicts)})
 
     def do_POST(self):
