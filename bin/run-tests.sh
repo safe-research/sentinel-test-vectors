@@ -138,7 +138,11 @@ for spec in "${SPECS[@]}"; do
           ;;
         secure | insecure)
           if [[ $actual != "$expected" ]]; then
-            detail="expected $expected, got $actual"
+            if [[ $actual == insecure && -n $actual_rule ]]; then
+              detail="expected $expected, got insecure ($actual_rule)"
+            else
+              detail="expected $expected, got $actual"
+            fi
           elif [[ $actual == secure ]]; then
             outcome=PASS
           elif [[ -z $actual_rule ]]; then
