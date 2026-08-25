@@ -22,9 +22,7 @@
       "pattern": "^R-[0-9]+\\.[0-9]+$"
     },
     "note": {
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$"
+      "type": "string"
     },
     "txHash": {
       "type": "string",
