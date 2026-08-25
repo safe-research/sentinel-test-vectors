@@ -73,9 +73,6 @@ done
 [[ $engine_url =~ ^https?://[^[:space:]]+$ ]] ||
   die 2 "--sentinel-engine-url: expected an http(s) base URL, got \"$engine_url\""
 
-(( parallel == 1 )) ||
-  die 2 "--parallel: parallelism is not implemented yet, only 1 is supported"
-
 # One outcome is one line, and an engine that returns a megabyte of HTML should
 # not flood the report with it.
 oneline() {
@@ -87,26 +84,15 @@ oneline() {
   fi
 }
 
-declare -A group_total=() group_pass=() group_fail=() group_skip=()
-declare -a groups=()
-total=0 passed=0 failed=0 skipped=0
-
-for spec in "${SPECS[@]}"; do
-  file="$ROOT/$spec"
-
-  group=${spec#specs/}
-  group=${group%%/*}
-  if [[ -z ${group_total[$group]:-} ]]; then
-    groups+=("$group")
-    group_total[$group]=0 group_pass[$group]=0
-    group_fail[$group]=0 group_skip[$group]=0
-  fi
+# check_spec SPEC — writes "OUTCOME DETAIL" to stdout and nothing else, so it
+# can run as a background job with stdout redirected to a result file.
+check_spec() {
+  local file="$ROOT/$1"
+  local expected expected_rule outcome=FAIL detail='' response code payload
+  local actual actual_rule
 
   expected=$(jq -r '.verdict' -- "$file")
   expected_rule=$(jq -r '.rule // ""' -- "$file")
-
-  outcome=FAIL
-  detail=
 
   if ! response=$(curl -sS -X POST \
     -H 'content-type: application/json' \
@@ -159,6 +145,51 @@ for spec in "${SPECS[@]}"; do
       esac
     fi
   fi
+
+  printf '%s %s\n' "$outcome" "$detail"
+}
+
+results=$(mktemp -d)
+# Interrupts exit so that the EXIT trap runs; a terminal Ctrl-C also reaches the
+# curl children directly, since they share the process group.
+trap 'rm -rf -- "$results"' EXIT
+trap 'exit 130' INT TERM
+
+# Throttle with `wait -n`, which returns as soon as any one job finishes rather
+# than waiting for a whole batch. Both waits are guarded: `wait -n` reports the
+# job's exit status, and a non-zero one would otherwise be fatal under `set -e`.
+running=0
+for i in "${!SPECS[@]}"; do
+  if (( running >= parallel )); then
+    wait -n || true
+    running=$((running - 1))
+  fi
+  check_spec "${SPECS[i]}" >"$results/$i" &
+  running=$((running + 1))
+done
+wait || true
+
+declare -A group_total=() group_pass=() group_fail=() group_skip=()
+declare -a groups=()
+total=0 passed=0 failed=0 skipped=0
+
+# Results are read back in spec order, so the report is byte-identical whatever
+# --parallel was set to.
+for i in "${!SPECS[@]}"; do
+  spec=${SPECS[i]}
+
+  group=${spec#specs/}
+  group=${group%%/*}
+  if [[ -z ${group_total[$group]:-} ]]; then
+    groups+=("$group")
+    group_total[$group]=0 group_pass[$group]=0
+    group_fail[$group]=0 group_skip[$group]=0
+  fi
+
+  outcome='' detail=''
+  read -r outcome detail <"$results/$i" || true
+  # An empty result means the worker itself died rather than reaching a verdict.
+  [[ -n $outcome ]] || { outcome=FAIL detail="no result from worker"; }
 
   (( ++total ))
   (( ++group_total[$group] ))
