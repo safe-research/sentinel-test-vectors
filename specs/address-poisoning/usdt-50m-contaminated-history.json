@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "EOA transaction. Sent 49,999,950 USDT to 0xbaff2f13638c04b10f8119760b2d2ae86b08f8b5, copied from a contaminated transfer history. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "EOA transaction. At nonce 111, the account sent a 50 USDT test payment to the intended address 0xbaf4b1af7e3b560d937da0458514552b6495f8b5. During the next 14 minutes, third parties manufactured zero-value genuine-USDT and 50-unit fake-USDT transfer records from the account to 0xbaff2f13638c04b10f8119760b2d2ae86b08f8b5, and the lookalike sent 0.005 genuine USDT back as dust. At nonce 112, 26 minutes after the test, the account sent the remaining 49,999,950 USDT to that lookalike, which shares the first three and last four hex digits with the intended recipient. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
   "txHash": "0xc0514a795f065fce8a3e1238a1ba480e8a792d45f6431ee4ba8d800bedd86a0f"
 }

@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "multiSend DELEGATECALL paying 0x70AE678b457C5E1b3fD7AD9537F234dFc1795C15, a poisoned lookalike of 0x70ae7D3DECfB4C3aE996fb1c07092566F73D5c15 that this same Safe had paid legitimately at nonce 1. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "BNB Chain multiSend DELEGATECALL at Safe nonce 6. One inner call transferred 239,691,786.288 GUA to 0x70AE678b457C5E1b3fD7AD9537F234dFc1795C15, a poisoned lookalike sharing the first four and last four hex digits with 0x70ae7D3DECfB4C3aE996fb1c07092566F73D5c15. The same Safe had transferred 624,197.360125 GUA to the legitimate address at nonce 1; the batch also paid 308,213.712 GUA to a second recipient. Fails R-4.3: the lookalike is outside the expected target set (§ 2.4).",
   "txHash": "0xd2689d12b22720e2fabcbceba683dd6eec61ba644187d0a60faf397b6d2fda7b"
 }

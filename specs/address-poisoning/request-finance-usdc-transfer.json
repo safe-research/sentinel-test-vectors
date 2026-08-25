@@ -15,6 +15,6 @@
   },
   "verdict": "insecure",
   "rule": "R-4.3",
-  "note": "USDC transfer to the lookalike recipient 0x0bfd0d71285dcf61262e4413ea32baaea7f1b2d2, surfaced through a compromised app interface. Filed upstream under unintended approvals, but the signed transaction is a plain transfer to the wrong address. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+  "note": "Transferred 70,000 USDC to the lookalike recipient 0x0bfd0d71285dcf61262e4413ea32baaea7f1b2d2, surfaced through a compromised app interface. Although its execution was aggregated on-chain with other Safe transactions, the individual payload signed at nonce 157 is a plain call to USDC transfer: it invokes neither an approval function nor a Request contract. Filed upstream under unintended approvals, but the signed transaction is a transfer to the wrong address. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
   "txHash": "0x2ed88b7a179b32a129b85cdf94fe50c4d8acee78e9af3da69c12aea3dd29ca47"
 }
