@@ -17,8 +17,8 @@ def rule_id:  type == "string" and test("^R-[0-9]+\\.[0-9]+$");
 # does not bury the message attached to it.
 def abbrev: tojson | if length > 44 then .[0:41] + "..." else . end;
 
-def root_properties: ["transaction", "verdict", "rule", "note", "txHash"];
-def required_properties: ["transaction", "verdict"];
+def root_properties: ["transaction", "block", "verdict", "rule", "note", "txHash"];
+def required_properties: ["transaction", "verdict", "block"];
 
 # Canonical order, mirrored by lib/canonical.jq.
 def transaction_properties: [
@@ -74,6 +74,10 @@ def check_documentation:
   (select(has("txHash") and (.txHash | digest | not))
     | "txHash: not a Digest, got \(.txHash | abbrev)");
 
+def check_block:
+  select(has("block") and (.block | quantity | not))
+  | "block: not a Quantity, got \(.block | abbrev)";
+
 if type != "object" then "expected a JSON object, got \(abbrev)"
-else check_root, check_transaction, check_verdict, check_documentation
+else check_root, check_transaction, check_verdict, check_block, check_documentation
 end

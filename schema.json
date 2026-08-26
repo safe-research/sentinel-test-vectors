@@ -5,11 +5,15 @@
   "additionalProperties": false,
   "required": [
     "transaction",
+    "block",
     "verdict"
   ],
   "properties": {
     "transaction": {
       "$ref": "#/$defs/safeTransaction"
+    },
+    "block": {
+      "$ref": "#/$defs/quantity"
     },
     "verdict": {
       "enum": [
