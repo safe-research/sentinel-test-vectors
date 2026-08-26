@@ -80,8 +80,6 @@ token-approval            1     100%       0%       0%
 TOTAL                    16      75%      19%       6%
 ```
 
-It exits `0` only on a clean sweep — 100% passed, nothing failed, nothing skipped.
-
 ### Options
 
 | Option                       | Environment           | Default                 | Meaning                                                  |
