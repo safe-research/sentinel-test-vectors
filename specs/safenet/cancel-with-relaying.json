@@ -1,0 +1,19 @@
+{
+  "transaction": {
+    "chainId": "0x1",
+    "safe": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+    "to": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "value": "0x0",
+    "data": "0xdd4647a14b57a6ec98ccb358bd3278683a944c89adead0cdb1f372125fc80580bd618caf",
+    "operation": 0,
+    "safeTxGas": "0x0",
+    "baseGas": "0x5afe0000",
+    "gasPrice": "0x5afe0000",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "0x2a"
+  },
+  "verdict": "insecure",
+  "rule": "R-4.4",
+  "note": "Direct relayed call from the Safe into `SafenetGuard.cancelAnnouncement(...)`. While per § 2.18 of the Safenet Charter, it is important to consider the relaying parameter (gasPrice, gasToken, baseGas, refundReciever). As the current charter does not specify reasonable gas limit values, it is required that it is a trusted refund receiver. In this example no refund receiver is set, therefore this is insecure."
+}
