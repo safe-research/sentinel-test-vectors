@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2a"
   },
+  "block": "0x18a64f0",
   "verdict": "insecure",
   "rule": "R-4.4",
   "note": "Direct relayed call from the Safe into `SafenetGuard.cancelAnnouncement(...)`. While per § 2.18 of the Safenet Charter, it is important to consider the relaying parameter (gasPrice, gasToken, baseGas, refundReciever). As the current charter does not specify reasonable gas limit values, it is required that it is a trusted refund receiver. In this example no refund receiver is set, therefore this is insecure."

@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x5"
   },
+  "block": "0x16f4279",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "EOA transaction. Sent 81,132.745 USDC to 0x160bef781a84f84ad2a5b789dddf8eff6bf8873e. Fails R-4.3: the recipient is outside the expected target set (§ 2.4) because its only foothold in the account's history was manufactured. In the two hours before the payment the account received four dust transfers of 0.000001 to 0.01 USDC from 0x1b9568a4..873e, 0x16075da1..873e and 0x160771e3..873e, and a third party (0xef7c73aa43..) forged a zero-value Transfer out of the account to 0x1607b9f4..873e. Those addresses and the recipient all share the trailing 873e.",

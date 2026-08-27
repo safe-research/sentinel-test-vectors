@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x0"
   },
+  "block": "0x2c515e1",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "Recast from a module execution, not a signed Safe transaction: the on-chain call is execTransactionFromModule on the Safe, so it carried no owner signatures and consumed no Safe nonce (recorded here as 0x0). Gnosis Pay ran a Delay module fork whose added EIP-1271 signature check was implemented fail-open, letting an unauthorised caller queue and execute this transfer of 2,536.046033 USDC.e to their own address 0x81ba8a2b895d30280bca199c2ff75f3f058d4c6c. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",

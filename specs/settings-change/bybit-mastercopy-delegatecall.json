@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x47"
   },
+  "block": "0x14e1846",
   "verdict": "insecure",
   "rule": "R-4.2",
   "note": "DELEGATECALL to an attacker-controlled contract, which overwrote the Safe's masterCopy pointer and swapped in malicious implementation logic; the signers saw a benign-looking transfer. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",

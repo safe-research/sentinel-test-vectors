@@ -8,9 +8,15 @@ All test vectors are files `specs/<group>/<case>.json`. They are organised into 
 
 ## Spec format
 
-Each vector is one JSON file: a Safe transaction, the expected verdict, and optional documentation.
+Each vector is one JSON file: a Safe transaction with its reference block, the expected verdict, and optional documentation
 
 The machine-readable definition is available in [`schema.json`](schema.json) for use with JSON schema compatible tools.
+
+### `block`
+
+Required block number on `transaction.chainId`: the block `txHash` executed in, or, for a vector with no real transaction behind it, the chain's latest block as of when the vector was written.
+
+`bin/run-tests.sh` sends this to the engine alongside `transaction`, as the block to evaluate against.
 
 ### `note`
 
@@ -35,7 +41,7 @@ Their notes begin with "EOA transaction." Read `safe` as the account whose funds
 
 ## Canonical formatting
 
-Spec files have exactly one permitted on-disk form: 2-space indent, one trailing newline, and keys in the order shown above — the `SafeTransaction` fields in Safe struct order, then `verdict`, `rule`, `note`, `txHash`.
+Spec files have exactly one permitted on-disk form: 2-space indent, one trailing newline, and keys in the order shown above — the `SafeTransaction` fields in Safe struct order, then `block`, `verdict`, `rule`, `note`, `txHash`.
 
 Do not hand-format. `bin/check-specs.sh --fix` rewrites files into canonical form, and CI rejects anything that is not already in it.
 

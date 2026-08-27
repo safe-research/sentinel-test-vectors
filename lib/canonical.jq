@@ -2,8 +2,10 @@
 #
 # Projects a spec into canonical key order; emit it with `jq --indent 2 -f`.
 # The order is chosen as follows: the SafeTransaction fields in Safe struct
-# order, then the verdict, then the rule it cites, then the note explaining it,
-# then the on-chain reference.
+# order, then the reference block, next to transaction because the two travel
+# together as the engine's input, then the verdict, then the rule it cites,
+# then the note explaining it, then the transaction hash, if there is a real
+# transaction behind the vector.
 
 def compact: with_entries(select(.value != null));
 
@@ -26,6 +28,7 @@ def compact: with_entries(select(.value != null));
     }
     | compact
   ),
+  block,
   verdict,
   rule,
   note,

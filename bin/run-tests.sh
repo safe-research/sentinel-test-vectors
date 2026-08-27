@@ -99,7 +99,7 @@ check_spec() {
     -H "x-request-timeout: $((timeout * 1000))" \
     --max-time "$timeout" \
     -w '\n%{http_code}' \
-    --data-binary "$(jq -c '{transaction}' -- "$file")" \
+    --data-binary "$(jq -c '{block, transaction}' -- "$file")" \
     -- "${engine_url%/}/v1/security-check" 2>&1); then
     # curl writes the -w template even when it fails, so the captured text ends
     # in a bare "000" status. Keep only curl's own first line.

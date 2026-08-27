@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x4"
   },
+  "block": "0x165029d",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "EOA transaction. At nonces 1 through 3, the account sent 120,000, 2,000 and 91,000 USDT to the established centralised-exchange deposit address 0x7a8f54089bb8f188d6ef897759c7adac48228d50. At nonce 4 it instead sent 41,326 USDT to 0x7a8b9ae9c95eac6c296d978e801442828d168d50, which shares the first three and last four hex digits. Two minutes after the nonce-3 payment a third party forged a zero-value Transfer from the account to the lookalike; 36 seconds later the lookalike sent 0.0091 genuine USDT back as dust. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",

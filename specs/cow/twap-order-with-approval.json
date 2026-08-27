@@ -13,6 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2a"
   },
+  "block": "0x18a60f6",
   "verdict": "secure",
   "note": "CoW Swap TWAP: Swap SAFE (~1.3M) to EURC via TWAP; 2 actions: Approve and TWAP; TWAP params: 24 hours, 5% price tolerance, 96 parts, 15min each"
 }
