@@ -89,17 +89,23 @@ oneline() {
 check_spec() {
   local file="$ROOT/$1"
   local expected expected_rule outcome=FAIL detail='' response code payload
-  local actual actual_rule
+  local actual actual_rule prior_block
 
   expected=$(jq -r '.verdict' -- "$file")
   expected_rule=$(jq -r '.rule // ""' -- "$file")
+
+  # The spec's "block" is the block that mines the transaction under test, so
+  # it necessarily reflects post-transaction state. Passing it verbatim would
+  # let the engine see the outcome it's supposed to be judging, so give it the
+  # block right before instead.
+  prior_block=$(printf '0x%x' "$(($(jq -r '.block' -- "$file") - 1))")
 
   if ! response=$(curl -sS -X POST \
     -H 'content-type: application/json' \
     -H "x-request-timeout: $((timeout * 1000))" \
     --max-time "$timeout" \
     -w '\n%{http_code}' \
-    --data-binary "$(jq -c '{block, transaction}' -- "$file")" \
+    --data-binary "$(jq -c --arg block "$prior_block" '{block: $block, transaction}' -- "$file")" \
     -- "${engine_url%/}/v1/security-check" 2>&1); then
     # curl writes the -w template even when it fails, so the captured text ends
     # in a bare "000" status. Keep only curl's own first line.
