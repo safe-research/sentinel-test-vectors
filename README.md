@@ -93,3 +93,44 @@ TOTAL                    16      75%      19%       6%
 | `--parallel=N`               | `PARALLEL`            | `1`                     | Run up to `N` specs concurrently.                        |
 | `--sentinel-engine-url=URL`  | `SENTINEL_ENGINE_URL` | `http://localhost:5473` | Engine base URL; `/v1/security-check` is appended.       |
 | `--sentinel-timeout=SECONDS` | `SENTINEL_TIMEOUT`    | `30`                    | Per-request budget. Sent as `x-request-timeout` (in ms). |
+
+## Crafting a spec from a real transaction
+
+`bin/craft-spec.sh` builds a spec from a Safe transaction that already executed 
+onchain, given a chain ID, a Safe address and a SafeTxHash (the SafeTx struct hash a
+Safe UI shows before signing, not the onchain transaction hash). It looks up the
+Safe's `ExecutionSuccess` event for that hash, decodes the enclosing transaction's
+`execTransaction()` calldata, recovers the nonce, and writes the result into
+`specs/<category>/`, formatted and validated the same way `bin/check-specs.sh --fix`
+would. It needs [Foundry's `cast`](https://book.getfoundry.sh/cast/) on `PATH`,
+alongside the `jq` this repository already depends on:
+
+```sh
+RPC_URLS='{"1":"https://eth.example/rpc"}' \
+  ./bin/craft-spec.sh \
+    --chain-id 1 \
+    --safe 0x888614448Eb7c766864faFb1Dd20ff0b47988a87 \
+    --safe-tx-hash 0x1234...abcd \
+    --verdict insecure \
+    --rule R-4.3 \
+    --category settings-change \
+    --note "Optional prose explaining the rationale."
+```
+
+The verdict and, when insecure, the rule it cites cannot be derived from the chain —
+those are always the caller's call. Run `./bin/craft-spec.sh --help` for the rest of
+the options, including narrowing the block range searched for the execution event.
+`ExecutionSuccess`'s `txHash` argument is only an indexed topic on Safe v1.4+; older
+Safes emit it as part of the log's `data` instead, so the search filters by event
+signature and Safe address alone and matches the hash client-side, transparently
+handling both.
+
+`RPC_URLS` is a JSON object mapping decimal chain IDs to RPC URLs, e.g.
+`{"11155111":"https://...","100":"https://..."}`. The
+[Craft spec from transaction](.github/workflows/craft-spec.yml) workflow runs the
+same script from a manually triggered GitHub Action and opens a pull request with
+the result; it expects `RPC_URLS` as a repository secret in that same shape.
+
+Some free/public RPC endpoints cap `eth_getLogs` to a narrow block range (single
+digits, in one case observed); `--scan-window` controls how wide a range this
+script asks for at a time, so lower it if the provider rejects the default.
