@@ -1,21 +1,27 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x0d0793971e3a21bddf504dc7c5d10bb4f3d3a2d8",
-    "to": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    "value": "0x0",
-    "data": "0xa9059cbb000000000000000000000000160bef781a84f84ad2a5b789dddf8eff6bf8873e00000000000000000000000000000000000000000000000000000012e3e37162",
-    "operation": 0,
-    "safeTxGas": "0x0",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0x5"
+  "request": {
+    "block": "0x16f4278",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x0d0793971e3a21bddf504dc7c5d10bb4f3d3a2d8",
+      "to": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "value": "0x0",
+      "data": "0xa9059cbb000000000000000000000000160bef781a84f84ad2a5b789dddf8eff6bf8873e00000000000000000000000000000000000000000000000000000012e3e37162",
+      "operation": 0,
+      "safeTxGas": "0x0",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0x5"
+    }
   },
-  "block": "0x16f4278",
-  "verdict": "insecure",
-  "rule": "R-4.3",
-  "note": "EOA transaction. Sent 81,132.745 USDC to 0x160bef781a84f84ad2a5b789dddf8eff6bf8873e. Fails R-4.3: the recipient is outside the expected target set (§ 2.4) because its only foothold in the account's history was manufactured. In the two hours before the payment the account received four dust transfers of 0.000001 to 0.01 USDC from 0x1b9568a4..873e, 0x16075da1..873e and 0x160771e3..873e, and a third party (0xef7c73aa43..) forged a zero-value Transfer out of the account to 0x1607b9f4..873e. Those addresses and the recipient all share the trailing 873e.",
-  "txHash": "0x209514aa5031fc74ce14e191189ada3752660b35fc09540fe0164ec756bf940c"
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.3"
+  },
+  "metadata": {
+    "note": "EOA transaction. Sent 81,132.745 USDC to 0x160bef781a84f84ad2a5b789dddf8eff6bf8873e. Fails R-4.3: the recipient is outside the expected target set (§ 2.4) because its only foothold in the account's history was manufactured. In the two hours before the payment the account received four dust transfers of 0.000001 to 0.01 USDC from 0x1b9568a4..873e, 0x16075da1..873e and 0x160771e3..873e, and a third party (0xef7c73aa43..) forged a zero-value Transfer out of the account to 0x1607b9f4..873e. Those addresses and the recipient all share the trailing 873e.",
+    "exampleTransaction": "0x209514aa5031fc74ce14e191189ada3752660b35fc09540fe0164ec756bf940c"
+  }
 }

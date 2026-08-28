@@ -1,19 +1,25 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x888614448Eb7c766864faFb1Dd20ff0b47988a87",
-    "to": "0x115e78f160e1e3ef163b05c84562fa16fa338509",
-    "value": "0x0",
-    "data": "0xadc9772e000000000000000000000000cc00de0ea14c08669b26dcbfe365dbd9890b04d90000000000000000000000000000000000000000000002ab0c205a56c1e00000",
-    "operation": 0,
-    "safeTxGas": "0x0",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0x2c"
+  "request": {
+    "block": "0x18a64ef",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x888614448Eb7c766864faFb1Dd20ff0b47988a87",
+      "to": "0x115e78f160e1e3ef163b05c84562fa16fa338509",
+      "value": "0x0",
+      "data": "0xadc9772e000000000000000000000000cc00de0ea14c08669b26dcbfe365dbd9890b04d90000000000000000000000000000000000000000000002ab0c205a56c1e00000",
+      "operation": 0,
+      "safeTxGas": "0x0",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0x2c"
+    }
   },
-  "block": "0x18a64ef",
-  "verdict": "secure",
-  "note": "Stake 12,600 SAFE using an allowance to the staking contract that was already approved in an earlier transaction. Consuming an existing allowance grants no new permission, so there is nothing for R-4.4 or R-4.5 to catch here."
+  "response": {
+    "verdict": "secure"
+  },
+  "metadata": {
+    "note": "Stake 12,600 SAFE using an allowance to the staking contract that was already approved in an earlier transaction. Consuming an existing allowance grants no new permission, so there is nothing for R-4.4 or R-4.5 to catch here."
+  }
 }

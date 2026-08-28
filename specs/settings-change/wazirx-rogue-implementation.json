@@ -1,21 +1,27 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x27fD43BABfbe83a81d14665b1a6fB8030A60C9b4",
-    "to": "0xfbfFEF83b1C172fE3BC86C1CCB036AB9F3efCAF2",
-    "value": "0x0",
-    "data": "0x804e1f0a000000000000000000000000ef279c2ab14960aa319008cbea384b9f8ac35fc6",
-    "operation": 1,
-    "safeTxGas": "0x0",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0x6b6"
+  "request": {
+    "block": "0x1363c2c",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x27fD43BABfbe83a81d14665b1a6fB8030A60C9b4",
+      "to": "0xfbfFEF83b1C172fE3BC86C1CCB036AB9F3efCAF2",
+      "value": "0x0",
+      "data": "0x804e1f0a000000000000000000000000ef279c2ab14960aa319008cbea384b9f8ac35fc6",
+      "operation": 1,
+      "safeTxGas": "0x0",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0x6b6"
+    }
   },
-  "block": "0x1363c2c",
-  "verdict": "insecure",
-  "rule": "R-4.2",
-  "note": "DELEGATECALL to an attacker-deployed contract that reconfigured the Safe in the same transaction that drained it, so no delay or review window ever applied to the settings change. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",
-  "txHash": "0x48164d3adbab78c2cb9876f6e17f88e321097fcd14cadd57556866e4ef3e185d"
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.2"
+  },
+  "metadata": {
+    "note": "DELEGATECALL to an attacker-deployed contract that reconfigured the Safe in the same transaction that drained it, so no delay or review window ever applied to the settings change. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",
+    "exampleTransaction": "0x48164d3adbab78c2cb9876f6e17f88e321097fcd14cadd57556866e4ef3e185d"
+  }
 }

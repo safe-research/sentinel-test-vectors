@@ -4,65 +4,110 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "transaction",
-    "block",
-    "verdict"
+    "request",
+    "response"
   ],
   "properties": {
-    "transaction": {
-      "$ref": "#/$defs/safeTransaction"
+    "request": {
+      "$ref": "#/$defs/request"
     },
-    "block": {
-      "$ref": "#/$defs/quantity"
+    "response": {
+      "$ref": "#/$defs/response"
     },
-    "verdict": {
-      "enum": [
-        "secure",
-        "insecure"
-      ]
-    },
-    "rule": {
-      "type": "string",
-      "pattern": "^R-[0-9]+\\.[0-9]+$"
-    },
-    "note": {
-      "type": "string"
-    },
-    "txHash": {
-      "type": "string",
-      "pattern": "^0x[0-9a-f]{64}$"
+    "metadata": {
+      "$ref": "#/$defs/metadata"
     }
   },
   "allOf": [
     {
       "if": {
         "properties": {
-          "verdict": {
-            "const": "insecure"
+          "response": {
+            "properties": {
+              "verdict": {
+                "const": "insecure"
+              }
+            }
           }
         }
       },
       "then": {
         "properties": {
-          "rule": true
-        },
-        "required": [
-          "rule"
-        ]
+          "response": {
+            "properties": {
+              "rule": true
+            },
+            "required": [
+              "rule"
+            ]
+          }
+        }
       },
       "else": {
-        "not": {
-          "properties": {
-            "rule": true
-          },
-          "required": [
-            "rule"
-          ]
+        "properties": {
+          "response": {
+            "not": {
+              "properties": {
+                "rule": true
+              },
+              "required": [
+                "rule"
+              ]
+            }
+          }
         }
       }
     }
   ],
   "$defs": {
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "block",
+        "transaction"
+      ],
+      "properties": {
+        "block": {
+          "$ref": "#/$defs/quantity"
+        },
+        "transaction": {
+          "$ref": "#/$defs/safeTransaction"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "secure",
+            "insecure"
+          ]
+        },
+        "rule": {
+          "type": "string",
+          "pattern": "^R-[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "exampleTransaction": {
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{64}$"
+        }
+      }
+    },
     "safeTransaction": {
       "type": "object",
       "additionalProperties": false,

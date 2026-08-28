@@ -1,21 +1,27 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
-    "to": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
-    "value": "0x0",
-    "data": "0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000",
-    "operation": 1,
-    "safeTxGas": "0xb2b2",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0x47"
+  "request": {
+    "block": "0x14e1845",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
+      "to": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
+      "value": "0x0",
+      "data": "0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000",
+      "operation": 1,
+      "safeTxGas": "0xb2b2",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0x47"
+    }
   },
-  "block": "0x14e1845",
-  "verdict": "insecure",
-  "rule": "R-4.2",
-  "note": "DELEGATECALL to an attacker-controlled contract, which overwrote the Safe's masterCopy pointer and swapped in malicious implementation logic; the signers saw a benign-looking transfer. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",
-  "txHash": "0x46deef0f52e3a983b67abf4714448a41dd7ffd6d32d32da69d62081c68ad7882"
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.2"
+  },
+  "metadata": {
+    "note": "DELEGATECALL to an attacker-controlled contract, which overwrote the Safe's masterCopy pointer and swapped in malicious implementation logic; the signers saw a benign-looking transfer. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",
+    "exampleTransaction": "0x46deef0f52e3a983b67abf4714448a41dd7ffd6d32d32da69d62081c68ad7882"
+  }
 }

@@ -216,17 +216,23 @@ spec=$(jq -n \
   --arg verdict "$verdict" \
   --arg rule "$rule" \
   --arg note "$note" \
-  --arg txHash "$tx_hash" \
+  --arg exampleTransaction "$tx_hash" \
   '{
-    transaction: {
-      chainId: $chainId, safe: $safe, to: $to, value: $value, data: $data,
-      operation: $operation, safeTxGas: $safeTxGas, baseGas: $baseGas,
-      gasPrice: $gasPrice, gasToken: $gasToken, refundReceiver: $refundReceiver,
-      nonce: $nonce
+    request: {
+      block: $block,
+      transaction: {
+        chainId: $chainId, safe: $safe, to: $to, value: $value, data: $data,
+        operation: $operation, safeTxGas: $safeTxGas, baseGas: $baseGas,
+        gasPrice: $gasPrice, gasToken: $gasToken, refundReceiver: $refundReceiver,
+        nonce: $nonce
+      }
     },
-    block: $block, verdict: $verdict, rule: $rule, note: $note, txHash: $txHash
+    response: { verdict: $verdict, rule: $rule },
+    metadata: { note: $note, exampleTransaction: $exampleTransaction }
   }
-  | with_entries(select(.value != "" and .value != null))')
+  | (.response |= with_entries(select(.value != "" and .value != null)))
+  | (.metadata |= with_entries(select(.value != "" and .value != null)))
+  | if (.metadata | length) == 0 then del(.metadata) else . end')
 
 [[ -n $name ]] || name="${safe}_$(cast to-dec "$nonce")"
 path="$ROOT/specs/$category/$name.json"

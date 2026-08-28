@@ -91,15 +91,15 @@ check_spec() {
   local expected expected_rule outcome=FAIL detail='' response code payload
   local actual actual_rule
 
-  expected=$(jq -r '.verdict' -- "$file")
-  expected_rule=$(jq -r '.rule // ""' -- "$file")
+  expected=$(jq -r '.response.verdict' -- "$file")
+  expected_rule=$(jq -r '.response.rule // ""' -- "$file")
 
   if ! response=$(curl -sS -X POST \
     -H 'content-type: application/json' \
     -H "x-request-timeout: $((timeout * 1000))" \
     --max-time "$timeout" \
     -w '\n%{http_code}' \
-    --data-binary "$(jq -c '{block, transaction}' -- "$file")" \
+    --data-binary "$(jq -c '.request' -- "$file")" \
     -- "${engine_url%/}/v1/security-check" 2>&1); then
     # curl writes the -w template even when it fails, so the captured text ends
     # in a bare "000" status. Keep only curl's own first line.

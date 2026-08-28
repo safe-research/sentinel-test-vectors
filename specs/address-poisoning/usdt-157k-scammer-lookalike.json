@@ -1,21 +1,27 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x40960ae197aad4532a7d408480fb32a79be2dcbb",
-    "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-    "value": "0x0",
-    "data": "0xa9059cbb000000000000000000000000a7a00bd2aed75019b4741e4cc9f078c3425a03f00000000000000000000000000000000000000000000000000000002497774a00",
-    "operation": 0,
-    "safeTxGas": "0x0",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0xa"
+  "request": {
+    "block": "0x1759474",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x40960ae197aad4532a7d408480fb32a79be2dcbb",
+      "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "value": "0x0",
+      "data": "0xa9059cbb000000000000000000000000a7a00bd2aed75019b4741e4cc9f078c3425a03f00000000000000000000000000000000000000000000000000000002497774a00",
+      "operation": 0,
+      "safeTxGas": "0x0",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0xa"
+    }
   },
-  "block": "0x1759474",
-  "verdict": "insecure",
-  "rule": "R-4.3",
-  "note": "EOA transaction. Sent 157,160 USDT to 0xa7a00bd2aed75019b4741e4cc9f078c3425a03f0. Fails R-4.3: the recipient is outside the expected target set (§ 2.4). The only USDT transfer between the account and this address in the four days before the payment was a 0.000190 USDT dust transfer from the recipient into the account 13 minutes earlier. The surrounding history also contained zero-value Transfers forged by third parties out of the account to the 0xa7a-prefixed lookalikes 0xa7a7106f.. and 0xa7a935c9.. shortly before.",
-  "txHash": "0xbcf463e826a44b79c6a5f055e135bb728efc08450d53f9765120cfb01f3c5e42"
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.3"
+  },
+  "metadata": {
+    "note": "EOA transaction. Sent 157,160 USDT to 0xa7a00bd2aed75019b4741e4cc9f078c3425a03f0. Fails R-4.3: the recipient is outside the expected target set (§ 2.4). The only USDT transfer between the account and this address in the four days before the payment was a 0.000190 USDT dust transfer from the recipient into the account 13 minutes earlier. The surrounding history also contained zero-value Transfers forged by third parties out of the account to the 0xa7a-prefixed lookalikes 0xa7a7106f.. and 0xa7a935c9.. shortly before.",
+    "exampleTransaction": "0xbcf463e826a44b79c6a5f055e135bb728efc08450d53f9765120cfb01f3c5e42"
+  }
 }
