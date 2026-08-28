@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2c"
   },
-  "block": "0x18a64f0",
+  "block": "0x18a64ef",
   "verdict": "secure",
   "note": "Stake 12,600 SAFE using an allowance to the staking contract that was already approved in an earlier transaction. Consuming an existing allowance grants no new permission, so there is nothing for R-4.4 or R-4.5 to catch here."
 }

@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x6"
   },
-  "block": "0x601b456",
+  "block": "0x601b455",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "BNB Chain multiSend DELEGATECALL at Safe nonce 6. One inner call transferred 239,691,786.288 GUA to 0x70AE678b457C5E1b3fD7AD9537F234dFc1795C15, a poisoned lookalike sharing the first four and last four hex digits with 0x70ae7D3DECfB4C3aE996fb1c07092566F73D5c15. The same Safe had transferred 624,197.360125 GUA to the legitimate address at nonce 1; the batch also paid 308,213.712 GUA to a second recipient. Fails R-4.3: the lookalike is outside the expected target set (§ 2.4).",

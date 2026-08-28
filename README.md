@@ -8,15 +8,15 @@ All test vectors are files `specs/<group>/<case>.json`. They are organised into 
 
 ## Spec format
 
-Each vector is one JSON file: a Safe transaction with its reference block, the expected verdict, and optional documentation
+Each vector is one JSON file: a Safe transaction with the reference block to evaluate it against, the expected verdict, and optional documentation
 
 The machine-readable definition is available in [`schema.json`](schema.json) for use with JSON schema compatible tools.
 
 ### `block`
 
-Required block number on `transaction.chainId`: the block `txHash` executed in, or, for a vector with no real transaction behind it, the chain's latest block as of when the vector was written.
+Required block number on `transaction.chainId`: the block the engine should evaluate `transaction` against, i.e. the block right before the one `txHash` executed in - the last block whose state does not yet reflect the transaction. For a vector with no real transaction behind it, this is the chain's latest block as of when the vector was written.
 
-`bin/run-tests.sh` sends this to the engine alongside `transaction`, as the block to evaluate against.
+`bin/run-tests.sh` sends this to the engine verbatim alongside `transaction`.
 
 ### `note`
 

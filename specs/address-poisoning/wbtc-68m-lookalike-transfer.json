@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x4"
   },
-  "block": "0x12df4d1",
+  "block": "0x12df4d0",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "EOA transaction. At nonce 3, the account sent 0.05 ETH to the intended address 0xd9a1b0b1e1ae382dbdc898ea68012ffcb2853a91. Less than three minutes later a third party manufactured a transfer of 0.05 units of a fake ERC-20 using the symbol ETH from the account to 0xd9a1c3788d81257612e2581a6ea0ada244853a91. At nonce 4, 74 minutes after that poisoning transfer, the account sent 1,155.288 WBTC to the lookalike, which shares the first four and last four hex digits with the intended recipient. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",

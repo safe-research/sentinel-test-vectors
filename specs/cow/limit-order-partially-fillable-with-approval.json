@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2a"
   },
-  "block": "0x18a60f6",
+  "block": "0x18a60f5",
   "verdict": "secure",
   "note": "CoW Swap Trade: Swap EURC (~105k) to EURe; Limit order; 7days; Partially fillable; 0.03% slippage max."
 }

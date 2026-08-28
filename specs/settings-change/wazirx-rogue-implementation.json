@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x6b6"
   },
-  "block": "0x1363c2d",
+  "block": "0x1363c2c",
   "verdict": "insecure",
   "rule": "R-4.2",
   "note": "DELEGATECALL to an attacker-deployed contract that reconfigured the Safe in the same transaction that drained it, so no delay or review window ever applied to the settings change. Fails R-4.2: a delegatecall that changes Safe storage outside the signedMessages exception. Also fails R-4.1, since the singleton implementation address is a Safe setting (§ 2.10) and a delegatecall to a non-Safe target cannot meet R-4.1's allowed exceptions.",

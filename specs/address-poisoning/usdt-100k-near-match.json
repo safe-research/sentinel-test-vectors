@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x1"
   },
-  "block": "0x173d7ef",
+  "block": "0x173d7ee",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "EOA transaction. Sent 100,000 USDT to 0xadf2b00721d376ac72c707294f20bdbf7d4f979d. Fails R-4.3: the recipient is outside the expected target set (§ 2.4). This was only the second transaction sent by the account, so there was no established pattern to place the recipient inside — only a manufactured one. Minutes earlier a third party (0xef7c73aa43..) forged repeated zero-value USDT Transfers out of the account to this recipient, and others forged the same to its neighbours 0xadf2d299..979d and 0xadf2afae..979d, leaving a history of payments the account never made to a family of adf2..979d lookalikes.",

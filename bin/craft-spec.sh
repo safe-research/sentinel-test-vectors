@@ -192,7 +192,12 @@ gas_price=$(cast to-hex "$(strip_annotation "${fields[6]}")")
 gas_token=${fields[7]}
 refund_receiver=${fields[8]}
 
-nonce=$(cast to-hex "$(strip_annotation "$(cast call "$safe" 'nonce()(uint256)' --block "$((block_number - 1))")")")
+# The engine evaluates a transaction against the state right before it lands,
+# so the spec's "block" is the block prior to the one that mined it, not the
+# mining block itself.
+reference_block=$((block_number - 1))
+
+nonce=$(cast to-hex "$(strip_annotation "$(cast call "$safe" 'nonce()(uint256)' --block "$reference_block")")")
 
 spec=$(jq -n \
   --arg chainId "$(cast to-hex "$chain_id")" \
@@ -207,7 +212,7 @@ spec=$(jq -n \
   --arg gasToken "$gas_token" \
   --arg refundReceiver "$refund_receiver" \
   --arg nonce "$nonce" \
-  --arg block "$(cast to-hex "$block_number")" \
+  --arg block "$(cast to-hex "$reference_block")" \
   --arg verdict "$verdict" \
   --arg rule "$rule" \
   --arg note "$note" \

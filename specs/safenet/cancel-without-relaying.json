@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2a"
   },
-  "block": "0x18a64f0",
+  "block": "0x18a64ef",
   "verdict": "secure",
   "note": "Direct unrelayed call from the Safe into `SafenetGuard.cancelAnnouncement(...)`, canceling escape-hatch announcement. Per § 2.18 of the Safenet Charter, cancelling (or announcing) is always allowed regardless of what transaction is being announced. This holds for any `to`: a zero-value plain CALL carrying an `announceTransaction`/`cancelAnnouncement` selector can only touch the caller's own announcement bookkeeping, never the Safe's funds or storage."
 }

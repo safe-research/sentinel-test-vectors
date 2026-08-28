@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2d"
   },
-  "block": "0x18a64f0",
+  "block": "0x18a64ef",
   "verdict": "secure",
   "note": "Approve the Safenet staking contract for 12,600 SAFE and immediately stake exactly that amount in the same batch. The approval is fully consumed by the stake call that follows it, so no allowance is left over."
 }

@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x30"
   },
-  "block": "0x18a64f0",
+  "block": "0x18a64ef",
   "verdict": "insecure",
   "rule": "R-4.5",
   "note": "Approve the Safenet staking contract for 15,000 SAFE but stake only 12,600 SAFE in the same batch, leaving a 2,400 SAFE allowance the staking contract can still pull after this transaction. Fails R-4.5: the approval materially exceeds what this interaction plausibly needs (§ 2.5), since the batch itself stakes 2,400 SAFE less than it approves."

@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x23"
   },
-  "block": "0x18a7c67",
+  "block": "0x18a7c66",
   "verdict": "secure",
   "note": "Ether transfer to an address with prior interaction (other ether transfer 2 months prior)",
   "txHash": "0xc42b1d5549212e514deda54060c0ae04f5ea185335a74fbbaf98953ea569e471"

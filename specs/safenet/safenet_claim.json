@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x2b"
   },
-  "block": "0x18a64f0",
+  "block": "0x18a64ef",
   "verdict": "secure",
   "note": "Claim all available SAFE token from the Safenet staking contract. There is no follow-up approval or stake in the same transaction, so no allowance is granted at all; nothing is left dangling."
 }

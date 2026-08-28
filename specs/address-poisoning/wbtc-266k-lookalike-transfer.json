@@ -13,7 +13,7 @@
     "refundReceiver": "0x0000000000000000000000000000000000000000",
     "nonce": "0x6c"
   },
-  "block": "0x1740e49",
+  "block": "0x1740e48",
   "verdict": "insecure",
   "rule": "R-4.3",
   "note": "EOA transaction. At nonce 104, the account sent 110 ETH to the intended address 0x85cbb0e8262815b4866b166c02f7ef876a49d8f6. Roughly seven minutes later, 0x85cbe4af7167887839f27a759eed03e7af11d8f6 sent one gwei of ETH into the account; another seven minutes later, at nonce 108, the account sent that lookalike 3.5 WBTC. The addresses agree on the first four and last four hex digits. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
