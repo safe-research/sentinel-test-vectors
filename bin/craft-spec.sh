@@ -192,7 +192,12 @@ gas_price=$(cast to-hex "$(strip_annotation "${fields[6]}")")
 gas_token=${fields[7]}
 refund_receiver=${fields[8]}
 
-nonce=$(cast to-hex "$(strip_annotation "$(cast call "$safe" 'nonce()(uint256)' --block "$((block_number - 1))")")")
+# The engine evaluates a transaction against the state right before it lands,
+# so the spec's "block" is the block prior to the one that mined it, not the
+# mining block itself.
+reference_block=$((block_number - 1))
+
+nonce=$(cast to-hex "$(strip_annotation "$(cast call "$safe" 'nonce()(uint256)' --block "$reference_block")")")
 
 spec=$(jq -n \
   --arg chainId "$(cast to-hex "$chain_id")" \
@@ -207,21 +212,27 @@ spec=$(jq -n \
   --arg gasToken "$gas_token" \
   --arg refundReceiver "$refund_receiver" \
   --arg nonce "$nonce" \
-  --arg block "$(cast to-hex "$block_number")" \
+  --arg block "$(cast to-hex "$reference_block")" \
   --arg verdict "$verdict" \
   --arg rule "$rule" \
   --arg note "$note" \
-  --arg txHash "$tx_hash" \
+  --arg exampleTransaction "$tx_hash" \
   '{
-    transaction: {
-      chainId: $chainId, safe: $safe, to: $to, value: $value, data: $data,
-      operation: $operation, safeTxGas: $safeTxGas, baseGas: $baseGas,
-      gasPrice: $gasPrice, gasToken: $gasToken, refundReceiver: $refundReceiver,
-      nonce: $nonce
+    request: {
+      block: $block,
+      transaction: {
+        chainId: $chainId, safe: $safe, to: $to, value: $value, data: $data,
+        operation: $operation, safeTxGas: $safeTxGas, baseGas: $baseGas,
+        gasPrice: $gasPrice, gasToken: $gasToken, refundReceiver: $refundReceiver,
+        nonce: $nonce
+      }
     },
-    block: $block, verdict: $verdict, rule: $rule, note: $note, txHash: $txHash
+    response: { verdict: $verdict, rule: $rule },
+    metadata: { note: $note, exampleTransaction: $exampleTransaction }
   }
-  | with_entries(select(.value != "" and .value != null))')
+  | (.response |= with_entries(select(.value != "" and .value != null)))
+  | (.metadata |= with_entries(select(.value != "" and .value != null)))
+  | if (.metadata | length) == 0 then del(.metadata) else . end')
 
 [[ -n $name ]] || name="${safe}_$(cast to-dec "$nonce")"
 path="$ROOT/specs/$category/$name.json"

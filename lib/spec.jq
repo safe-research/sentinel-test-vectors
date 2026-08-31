@@ -17,8 +17,12 @@ def rule_id:  type == "string" and test("^R-[0-9]+\\.[0-9]+$");
 # does not bury the message attached to it.
 def abbrev: tojson | if length > 44 then .[0:41] + "..." else . end;
 
-def root_properties: ["transaction", "block", "verdict", "rule", "note", "txHash"];
-def required_properties: ["transaction", "verdict", "block"];
+def root_properties: ["request", "response", "metadata"];
+def required_properties: ["request", "response"];
+
+def request_properties: ["block", "transaction"];
+def response_properties: ["verdict", "rule"];
+def metadata_properties: ["note", "exampleTransaction"];
 
 # Canonical order, mirrored by lib/canonical.jq.
 def transaction_properties: [
@@ -35,49 +39,75 @@ def check_root:
 def check_transaction:
   if has("transaction") | not then empty
   elif (.transaction | type) != "object" then
-    "transaction: expected an object, got \(.transaction | abbrev)"
+    "request.transaction: expected an object, got \(.transaction | abbrev)"
   else
     .transaction
-    | ((keys_unsorted - transaction_properties)[] | "transaction: unknown property \"\(.)\""),
-      ((transaction_properties - keys_unsorted)[] | "transaction: missing property \"\(.)\""),
+    | ((keys_unsorted - transaction_properties)[] | "request.transaction: unknown property \"\(.)\""),
+      ((transaction_properties - keys_unsorted)[] | "request.transaction: missing property \"\(.)\""),
       (to_entries[]
         | select(.key | IN(address_properties[])) | select(.value | address | not)
-        | "transaction.\(.key): not an Address, got \(.value | abbrev)"),
+        | "request.transaction.\(.key): not an Address, got \(.value | abbrev)"),
       (to_entries[]
         | select(.key | IN(quantity_properties[])) | select(.value | quantity | not)
-        | "transaction.\(.key): not a Quantity, got \(.value | abbrev)"),
+        | "request.transaction.\(.key): not a Quantity, got \(.value | abbrev)"),
       (select(has("data") and (.data | bytes | not))
-        | "transaction.data: not Bytes, got \(.data | abbrev)"),
+        | "request.transaction.data: not Bytes, got \(.data | abbrev)"),
       (select(has("operation") and (.operation | IN(0, 1) | not))
-        | "transaction.operation: expected 0 (CALL) or 1 (DELEGATECALL), got \(.operation | abbrev)")
+        | "request.transaction.operation: expected 0 (CALL) or 1 (DELEGATECALL), got \(.operation | abbrev)")
+  end;
+
+def check_block:
+  select(has("block") and (.block | quantity | not))
+  | "request.block: not a Quantity, got \(.block | abbrev)";
+
+def check_request:
+  if has("request") | not then empty
+  elif (.request | type) != "object" then
+    "request: expected an object, got \(.request | abbrev)"
+  else
+    .request
+    | ((keys_unsorted - request_properties)[] | "request: unknown property \"\(.)\""),
+      ((request_properties - keys_unsorted)[] | "request: missing property \"\(.)\""),
+      (check_transaction, check_block)
   end;
 
 # "abstain" is a valid engine response but never a valid expectation: a vector
 # asserts a definitive answer.
-def check_verdict:
-  if has("verdict") | not then empty
-  elif (.verdict | IN("secure", "insecure") | not) then
-    "verdict: expected \"secure\" or \"insecure\", got \(.verdict | abbrev)"
-  elif .verdict == "insecure" then
-    if has("rule") | not then "rule: required when verdict is \"insecure\""
-    elif .rule | rule_id | not then
-      "rule: not a Charter rule citation such as \"R-4.3\", got \(.rule | abbrev)"
-    else empty
-    end
-  elif has("rule") then "rule: must be absent when verdict is \"secure\""
-  else empty
+def check_response:
+  if has("response") | not then empty
+  elif (.response | type) != "object" then
+    "response: expected an object, got \(.response | abbrev)"
+  else
+    .response
+    | ((keys_unsorted - response_properties)[] | "response: unknown property \"\(.)\""),
+      ((["verdict"] - keys_unsorted)[] | "response: missing property \"\(.)\""),
+      (if has("verdict") | not then empty
+      elif (.verdict | IN("secure", "insecure") | not) then
+        "response.verdict: expected \"secure\" or \"insecure\", got \(.verdict | abbrev)"
+      elif .verdict == "insecure" then
+        if has("rule") | not then "response.rule: required when verdict is \"insecure\""
+        elif .rule | rule_id | not then
+          "response.rule: not a Charter rule citation such as \"R-4.3\", got \(.rule | abbrev)"
+        else empty
+        end
+      elif has("rule") then "response.rule: must be absent when verdict is \"secure\""
+      else empty
+      end)
   end;
 
-def check_documentation:
-  (select(has("note") and (.note | type) != "string")
-    | "note: not a string, got \(.note | abbrev)"),
-  (select(has("txHash") and (.txHash | digest | not))
-    | "txHash: not a Digest, got \(.txHash | abbrev)");
-
-def check_block:
-  select(has("block") and (.block | quantity | not))
-  | "block: not a Quantity, got \(.block | abbrev)";
+def check_metadata:
+  if has("metadata") | not then empty
+  elif (.metadata | type) != "object" then
+    "metadata: expected an object, got \(.metadata | abbrev)"
+  else
+    .metadata
+    | ((keys_unsorted - metadata_properties)[] | "metadata: unknown property \"\(.)\""),
+      (select(has("note") and (.note | type) != "string")
+        | "metadata.note: not a string, got \(.note | abbrev)"),
+      (select(has("exampleTransaction") and (.exampleTransaction | digest | not))
+        | "metadata.exampleTransaction: not a Digest, got \(.exampleTransaction | abbrev)")
+  end;
 
 if type != "object" then "expected a JSON object, got \(abbrev)"
-else check_root, check_transaction, check_verdict, check_block, check_documentation
+else check_root, check_request, check_response, check_metadata
 end

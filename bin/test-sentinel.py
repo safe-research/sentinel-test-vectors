@@ -22,10 +22,10 @@ def load_corpus(root):
     verdicts = {}
     for path in sorted(root.glob("specs/*/*.json")):
         spec = json.loads(path.read_text())
-        key = json.dumps(spec["transaction"], sort_keys=True)
-        answer = {"verdict": spec["verdict"]}
-        if "rule" in spec:
-            answer["rule"] = spec["rule"]
+        key = json.dumps(spec["request"]["transaction"], sort_keys=True)
+        answer = {"verdict": spec["response"]["verdict"]}
+        if "rule" in spec["response"]:
+            answer["rule"] = spec["response"]["rule"]
         if verdicts.get(key, answer) != answer:
             sys.exit(
                 f"{path.relative_to(root)}: another vector has the same "

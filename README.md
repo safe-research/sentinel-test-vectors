@@ -8,25 +8,37 @@ All test vectors are files `specs/<group>/<case>.json`. They are organised into 
 
 ## Spec format
 
-Each vector is one JSON file: a Safe transaction with its reference block, the expected verdict, and optional documentation
+Each vector is one JSON file with three top-level sections, mirroring the engine's own API: `request` is what a sentinel is sent, `response` is what it must answer, and `metadata` is documentation that plays no part in the check itself.
 
 The machine-readable definition is available in [`schema.json`](schema.json) for use with JSON schema compatible tools.
 
-### `block`
+### `request`
 
-Required block number on `transaction.chainId`: the block `txHash` executed in, or, for a vector with no real transaction behind it, the chain's latest block as of when the vector was written.
+Required. The engine's input: `block`, the reference block to evaluate against, and `transaction`, the Safe transaction under test.
 
-`bin/run-tests.sh` sends this to the engine alongside `transaction`, as the block to evaluate against.
+#### `request.block`
 
-### `note`
+Required block number on `request.transaction.chainId`: the block the engine should evaluate `request.transaction` against. In case a vector is derived from an onchain transaction, this is the block before it was included, as the check would have happened before the transaction execution. For a vector with no real transaction behind it, this is the chain's latest block as of when the vector was written.
+
+`bin/run-tests.sh` sends `request` to the engine verbatim.
+
+### `response`
+
+Required. The answer a correct engine gives for `request`: `verdict` (`"secure"` or `"insecure"`), and, when insecure, the `rule` it cites.
+
+### `metadata`
+
+Optional, and read by nothing but humans: neither `bin/run-tests.sh` nor the engine ever sees it.
+
+#### `metadata.note`
 
 Optional prose explaining the rationale behind the verdict: why this transaction is insecure, or why a superficially alarming one is fine.
 
-### `txHash`
+#### `metadata.exampleTransaction`
 
 Optional hash of a real on-chain transaction corresponding to this vector.
 
-This is for **documentation only**, a pointer to a block explorer for whoever is investigating the case. Nothing derives it from `transaction` or checks that the two agree, and the test harness never reads it.
+This is for **documentation only**, a pointer to a block explorer for whoever is investigating the case. Nothing derives it from `request.transaction` or checks that the two agree.
 
 ### EOA Transactions
 
@@ -41,7 +53,7 @@ Their notes begin with "EOA transaction." Read `safe` as the account whose funds
 
 ## Canonical formatting
 
-Spec files have exactly one permitted on-disk form: 2-space indent, one trailing newline, and keys in the order shown above — the `SafeTransaction` fields in Safe struct order, then `block`, `verdict`, `rule`, `note`, `txHash`.
+Spec files have exactly one permitted on-disk form: 2-space indent, one trailing newline, and keys in the order shown above — `request` (`block`, then the `SafeTransaction` fields in Safe struct order), then `response` (`verdict`, then `rule`), then `metadata` (`note`, then `exampleTransaction`).
 
 Do not hand-format. `bin/check-specs.sh --fix` rewrites files into canonical form, and CI rejects anything that is not already in it.
 

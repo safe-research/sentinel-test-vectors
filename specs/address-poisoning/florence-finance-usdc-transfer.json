@@ -1,21 +1,27 @@
 {
-  "transaction": {
-    "chainId": "0x1",
-    "safe": "0x26E4CB4A6787419ac53B7D3FE92fA1DaD1C8548E",
-    "to": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-    "value": "0x0",
-    "data": "0xa9059cbb000000000000000000000000b087269de7ba93d0db2e12ff164d60f0b3675870000000000000000000000000000000000000000000000000000001530a05d834",
-    "operation": 0,
-    "safeTxGas": "0x0",
-    "baseGas": "0x0",
-    "gasPrice": "0x0",
-    "gasToken": "0x0000000000000000000000000000000000000000",
-    "refundReceiver": "0x0000000000000000000000000000000000000000",
-    "nonce": "0x3"
+  "request": {
+    "block": "0x11ce216",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x26E4CB4A6787419ac53B7D3FE92fA1DaD1C8548E",
+      "to": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "value": "0x0",
+      "data": "0xa9059cbb000000000000000000000000b087269de7ba93d0db2e12ff164d60f0b3675870000000000000000000000000000000000000000000000000000001530a05d834",
+      "operation": 0,
+      "safeTxGas": "0x0",
+      "baseGas": "0x0",
+      "gasPrice": "0x0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": "0x3"
+    }
   },
-  "block": "0x11ce217",
-  "verdict": "insecure",
-  "rule": "R-4.3",
-  "note": "Transferred 1,456,162.068532 USDC to 0xb087269de7ba93d0db2e12ff164d60f0b3675870 instead of the established recipient 0xb087cfa70498175a1579104a1e1240bd947f5870; the two share the first four and last four hex digits. The Safe had paid the intended address 100 and 1,499,900 genuine USDC two days earlier. A third party then manufactured a 1,499,900-unit transfer from the Safe to the lookalike using a fake ERC-20 styled as USDC about 30 hours before the mistaken payment. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
-  "txHash": "0x67a7a5f258378f953e1561a25f0e264d88ac229d4c6ec871b67a2b399137fed8"
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.3"
+  },
+  "metadata": {
+    "note": "Transferred 1,456,162.068532 USDC to 0xb087269de7ba93d0db2e12ff164d60f0b3675870 instead of the established recipient 0xb087cfa70498175a1579104a1e1240bd947f5870; the two share the first four and last four hex digits. The Safe had paid the intended address 100 and 1,499,900 genuine USDC two days earlier. A third party then manufactured a 1,499,900-unit transfer from the Safe to the lookalike using a fake ERC-20 styled as USDC about 30 hours before the mistaken payment. Fails R-4.3: the recipient is outside the expected target set (§ 2.4).",
+    "exampleTransaction": "0x67a7a5f258378f953e1561a25f0e264d88ac229d4c6ec871b67a2b399137fed8"
+  }
 }
