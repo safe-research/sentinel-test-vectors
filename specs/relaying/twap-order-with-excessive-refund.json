@@ -18,7 +18,7 @@
   },
   "response": {
     "verdict": "insecure",
-    "rule": "R-4.4"
+    "rule": "R-4.3"
   },
   "metadata": {
     "note": "Relayed variant of `cow/twap-order-with-approval.json`: the same CoW Swap TWAP batch (approve to the vault relayer plus a matching TWAP `create`), which is secure on its own, but with a refund attached. `gasPrice` is 1 with USDC as `gasToken` and `baseGas` of 900,000,000,000, so the Safe will pay about 900,000 USDC to `refundReceiver`, an address with no prior interaction with the Safe. Per § 2.18 of the Safenet Charter the relaying parameters must be considered regardless of the primary call: a well-formed, protocol-specific batch must not stand in for the whole transaction when a refund of this size is attached to it."
