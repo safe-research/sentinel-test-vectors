@@ -1,0 +1,26 @@
+{
+  "request": {
+    "block": "0x18a64ef",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x888614448Eb7c766864faFb1Dd20ff0b47988a87",
+      "to": "0x115e78f160e1e3ef163b05c84562fa16fa338509",
+      "value": "0x0",
+      "data": "0xadc9772e000000000000000000000000cc00de0ea14c08669b26dcbfe365dbd9890b04d90000000000000000000000000000000000000000000002ab0c205a56c1e00000",
+      "operation": 0,
+      "safeTxGas": "0x30d40",
+      "baseGas": "0xd18c2e2800",
+      "gasPrice": "0x1",
+      "gasToken": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "refundReceiver": "0xd1AD9A1eE901090714B34529513DCAE8Ec456edD",
+      "nonce": "0x2c"
+    }
+  },
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.3"
+  },
+  "metadata": {
+    "note": "Relayed variant of `safenet/safenet_stake.json`: the same stake of 12,600 SAFE against an existing allowance, which is secure on its own, but with a refund attached. `gasPrice` is 1 with USDC as `gasToken` and `baseGas` of 900,000,000,000, so per § 2.18 of the Safenet Charter the Safe will pay `(gasUsed + baseGas) * gasPrice`, i.e. about 900,000 USDC, to `refundReceiver`, an address with no prior interaction with the Safe. The refund, not the stake, is the effect of this transaction: it is a transfer of the Safe's funds to an untrusted receiver, orders of magnitude beyond any plausible gas reimbursement. A verdict must consider the relaying parameters even when the primary call is one that would otherwise be considered secure."
+  }
+}

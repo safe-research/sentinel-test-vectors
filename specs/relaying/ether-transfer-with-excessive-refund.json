@@ -1,0 +1,26 @@
+{
+  "request": {
+    "block": "0x18a7c66",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0xAb876791757b47D202B7d6DeF038940cE7A64fe4",
+      "to": "0x977271f3DdD39293f50E739ab40df46C51927de5",
+      "value": "0x1e87f85809dc0000",
+      "data": "0x",
+      "operation": 0,
+      "safeTxGas": "0x30d40",
+      "baseGas": "0xd18c2e2800",
+      "gasPrice": "0x1",
+      "gasToken": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "refundReceiver": "0xd1AD9A1eE901090714B34529513DCAE8Ec456edD",
+      "nonce": "0x23"
+    }
+  },
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.3"
+  },
+  "metadata": {
+    "note": "Relayed variant of `transfers/0xAb876791757b47D202B7d6DeF038940cE7A64fe4_35.json`: the same ether transfer to an address with prior interaction, which is secure on its own, but with a refund attached. `gasPrice` is 1 with USDC as `gasToken` and `baseGas` of 900,000,000,000, so the Safe will additionally pay about 900,000 USDC to `refundReceiver`, an address with no prior interaction with the Safe. Per § 2.18 of the Safenet Charter the relaying parameters must be considered: the prior interaction that makes the primary transfer acceptable says nothing about the refund receiver, and a refund of this size is a transfer of the Safe's funds to an untrusted address, not a gas reimbursement."
+  }
+}
