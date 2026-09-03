@@ -1,0 +1,26 @@
+{
+  "request": {
+    "block": "0x18a64ef",
+    "transaction": {
+      "chainId": "0x1",
+      "safe": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+      "to": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "value": "0x0",
+      "data": "0x7b328c100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000000000000000000000000000000000000000000004deaddead00000000000000000000000000000000000000000000000000000000",
+      "operation": 0,
+      "safeTxGas": "0x30d40",
+      "baseGas": "0xba43b7400",
+      "gasPrice": "0x3b9aca00",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0xd1AD9A1eE901090714B34529513DCAE8Ec456edD",
+      "nonce": "0x2a"
+    }
+  },
+  "response": {
+    "verdict": "insecure",
+    "rule": "R-4.4"
+  },
+  "metadata": {
+    "note": "Relayed variant of `safenet/announcement-without-relaying.json`: the same call into `SafenetGuard.announceTransaction(...)`, but with a native-currency refund attached. `gasToken` is the zero address, `gasPrice` is 1 gwei and `baseGas` is 50,000,000,000, so the Safe will pay `(gasUsed + baseGas) * min(gasPrice, tx.gasprice)`, i.e. about 50 ETH, to `refundReceiver`, an address with no prior interaction with the Safe. Per § 2.18 of the Safenet Charter the relaying parameters must be considered: a refund of this size is not a gas reimbursement but a transfer of the Safe's ether to an untrusted receiver. Note that the refund is paid in native currency, not through an ERC-20 `transfer`, and that it is paid whether or not the inner call succeeds."
+  }
+}
